@@ -1,34 +1,56 @@
-docker-moodle
-=============
+moodle
+======
 
-A Dockerfile that installs and runs Moodle stable 3.1.
+Docker scripts that install and run Moodle in a container.
 
 ## Installation
 
-  - Get scripts from GitHub:
+  - Install `ds` (docker scripts):
     ```
-    mkdir -p /opt/src/
-    cd /opt/src/
-    git clone https://github.com/docker-build/moodle
+    git clone https://github.com/docker-scripts/ds /usr/local/src/ds
+    cd /usr/local/src/ds/
+    make install
     ```
 
-  - Create a working directory for the container:
+  - Get the moodle scripts from github:
     ```
-    mkdir -p /opt/workdir/moodle1
-    cd /opt/workdir/moodle1/
-    ln -s /opt/src/moodle .
-    cp moodle/utils/settings.sh .
+    git clone https://github.com/docker-scripts/moodle /usr/local/src/moodle
+
+    ```
+
+  - Create a working directory for the moodle container:
+    ```
+    mkdir -p /var/containers/moodle1
+    cd /var/containers/moodle1/
+    ```
+
+  - Initialize and fix the settings
+    ```
+    ds init /usr/local/src/moodle
     vim settings.sh
+    ds info
+
     ```
 
-  - Build image, create the container, start it and configure it:
+  - Build image, create the container and configure it:
     ```
-    moodle/docker/build.sh
-    moodle/docker/create.sh
-    moodle/docker/start.sh
-    moodle/config.sh
+    ds build
+    ds create
+    ds config
     ```
 
   - If the domain is not a real one, add to `/etc/hosts` the line
     `127.0.0.1 moodle.example.org` and then try
     http://moodle.example.org in browser.
+
+
+## Usage
+
+  - Other DS commands:
+    ```
+    ds shell
+    ds stop
+    ds start
+    ds snapshot
+    ds backup
+    ```
