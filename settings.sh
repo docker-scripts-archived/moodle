@@ -1,15 +1,12 @@
-SRC=/opt/src/mo
+SRC=/usr/local/src/moodle
 
 ### Docker settings.
 IMAGE=moodle
 CONTAINER=moodle
-#PORTS="80:80 443:443 2222:22"
-PORTS=""
+#PORTS="80:80 443:443 2222:22"    ## ports to be forwarded when running stand-alone
+PORTS=""    ## no ports to be forwarded when running behind wsproxy
 
 DOMAIN="moodle.example.org"
-
-#CONFIG="set_prompt mount_tmp_on_ram ssmtp mysql apache2 get_ssl_cert phpmyadmin"
-CONFIG="set_prompt mount_tmp_on_ram ssmtp mysql apache2"
 
 ### MySQL settings
 DBNAME=moodle
