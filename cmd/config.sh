@@ -1,9 +1,9 @@
-# Run configuration scripts inside the container.
-
 cmd_config_help() {
-    echo "
+    cat <<_EOF
     config
-        Run configuration scripts inside the container."
+        Run configuration scripts inside the container.
+
+_EOF
 }
 
 cmd_config() {

@@ -1,14 +1,14 @@
-# Backup the moodle database and the config file.
-
 cmd_backup_help() {
-    echo "
+    cat <<_EOF
     backup
-        Backup the Moodle database and config file."
+        Backup the Moodle database and config file.
+
+_EOF
 }
 
 cmd_backup() {
-    datestamp=$(date +%F)
-    dir=backup-$CONTAINER-$datestamp
+    local datestamp=$(date +%F)
+    local dir=backup-$CONTAINER-$datestamp
     rm -rf $dir/
     mkdir -p $dir/
 
