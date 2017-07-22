@@ -3,7 +3,7 @@ moodle
 
 Docker scripts that install and run Moodle in a container.
 
-## Installation
+## Install
 
   - First install `ds` and `wsproxy`:
      + https://github.com/docker-scripts/ds#installation
@@ -34,11 +34,19 @@ Docker scripts that install and run Moodle in a container.
     ds config
     ```
 
+
+## Access the website
+
   - Tell `wsproxy` that the domain `moodle1.example.org` is served by the container `moodle1-example-org`:
     ```
     cd /var/container/wsproxy/
     ds domains-add moodle1-example-org moodle1.example.org
-    ds reload
+    ```
+
+  - If the domain is a real one, get a free SSL certificate from letsencrypt.org:
+    ```
+    ds get-ssl-cert user@example.org moodle1.example.org --test
+    ds get-ssl-cert user@example.org moodle1.example.org
     ```
 
   - If the domain is not a real one, add to `/etc/hosts` the line
@@ -46,13 +54,14 @@ Docker scripts that install and run Moodle in a container.
     https://moodle1.example.org in browser.
 
 
-## Usage
+## Other commands
 
-  - Other DS commands:
-    ```
-    ds shell
-    ds stop
-    ds start
-    ds snapshot
-    ds backup
-    ```
+```
+ds shell
+ds stop
+ds start
+ds snapshot
+ds backup
+
+ds help
+```
