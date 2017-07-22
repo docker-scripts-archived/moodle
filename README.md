@@ -16,8 +16,8 @@ Docker scripts that install and run Moodle in a container.
 
   - Create a working directory for the moodle container:
     ```
-    mkdir -p /var/containers/moodle1
-    cd /var/containers/moodle1/
+    mkdir -p /var/containers/moodle1-example-org
+    cd /var/containers/moodle1-example-org/
     ```
 
   - Initialize and fix the settings:
@@ -34,16 +34,16 @@ Docker scripts that install and run Moodle in a container.
     ds config
     ```
 
-  - Tell `wsproxy` that the domain `moodle.example.org` is served by the container `moodle1`:
+  - Tell `wsproxy` that the domain `moodle1.example.org` is served by the container `moodle1-example-org`:
     ```
     cd /var/container/wsproxy/
-    ds domains-add moodle1 moodle.example.org
+    ds domains-add moodle1-example-org moodle1.example.org
     ds reload
     ```
 
   - If the domain is not a real one, add to `/etc/hosts` the line
-    `127.0.0.1 moodle.example.org` and then try
-    https://moodle.example.org in browser.
+    `127.0.0.1 moodle1.example.org` and then try
+    https://moodle1.example.org in browser.
 
 
 ## Usage

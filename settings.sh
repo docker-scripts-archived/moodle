@@ -2,11 +2,11 @@ SRC=/usr/local/src/moodle
 
 ### Docker settings.
 IMAGE=moodle
-CONTAINER=moodle
+CONTAINER=moodle1-example-org
 #PORTS="80:80 443:443 2222:22"    ## ports to be forwarded when running stand-alone
 PORTS=""    ## no ports to be forwarded when running behind wsproxy
 
-DOMAIN="moodle.example.org"
+DOMAIN="moodle1.example.org"
 
 ### MySQL settings
 DBNAME=moodle
