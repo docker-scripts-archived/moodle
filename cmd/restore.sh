@@ -7,22 +7,38 @@ _EOF
 }
 
 cmd_restore() {
+    # get the backup file
     local file=$1
     test -f "$file" || fail "Usage: $COMMAND <backup-file.tgz>"
     local dir=${file%%.tgz}
     [[ $file != $dir ]] || fail "Usage: $COMMAND <backup-file.tgz>"
 
     # extract the backup archive
-    tar xfz $file
+    tar --extract --gunzip --preserve-permissions --file=$file
     dir=$(basename $dir)
+
+    # stop the web server
+    ds exec service apache2 stop
+
+    # restore the data/ directory
+    if [[ -d $dir/data/ ]]; then
+        [[ -d data ]] && mv data data-bak
+        cp -a $dir/data/ .
+    fi
 
     # restore the config file
     docker cp $dir/config.php $CONTAINER:/var/www/moodle/
 
     # restore the database
-    sed -i $dir/db.sql -e '/^mysqldump:/d'
     ds exec sh -c \
         "mysql --defaults-file=/etc/mysql/debian.cnf --database="$DBNAME" < /host/$dir/db.sql"
 
+    # cleanup
     rm -rf $dir/
+
+    # start the web server
+    ds exec service apache2 start
+
+    # restart the container
+    ds restart
 }
