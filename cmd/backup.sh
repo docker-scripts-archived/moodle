@@ -12,13 +12,13 @@ cmd_backup() {
     rm -rf $dir/
     mkdir -p $dir/
 
-    ### dump the database
-    docker exec -it $CONTAINER \
+    # dump the database
+    ds exec \
         mysqldump --allow-keywords --opt \
-        --user="$DBUSER" --password="$DBPASS" "$DBNAME" \
+        --defaults-file=/etc/mysql/debian.cnf "$DBNAME" \
         > $dir/db.sql
 
-    ### copy the config file
+    # copy the config file
     docker cp $CONTAINER:/var/www/moodle/config.php $dir/
 
     tar cfz $dir.tgz $dir/
