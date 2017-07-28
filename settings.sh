@@ -1,4 +1,4 @@
-SRC=/usr/local/src/moodle
+APP=moodle
 
 ### Docker settings.
 IMAGE=moodle

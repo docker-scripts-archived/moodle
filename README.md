@@ -9,20 +9,13 @@ Docker scripts that install and run Moodle in a container.
      + https://github.com/docker-scripts/ds#installation
      + https://github.com/docker-scripts/wsproxy#installation
 
-  - Then get the moodle scripts from github:
-    ```
-    git clone https://github.com/docker-scripts/moodle /usr/local/src/moodle
-    ```
+  - Then get the moodle scripts from github: `ds pull moodle`
 
-  - Create a working directory for the moodle container:
-    ```
-    mkdir -p /var/containers/moodle1-example-org
-    cd /var/containers/moodle1-example-org/
-    ```
+  - Create a directory for the moodle container: `ds init moodle @moodle1-example-org`
 
-  - Initialize and fix the settings:
+  - Fix the settings:
     ```
-    ds init /usr/local/src/moodle
+    cd /var/ds/moodle1-example-org/
     vim settings.sh
     ds info
     ```
@@ -39,14 +32,13 @@ Docker scripts that install and run Moodle in a container.
 
   - Tell `wsproxy` that the domain `moodle1.example.org` is served by the container `moodle1-example-org`:
     ```
-    cd /var/container/wsproxy/
-    ds domains-add moodle1-example-org moodle1.example.org
+    ds @wsproxy domains-add moodle1-example-org moodle1.example.org
     ```
 
   - If the domain is a real one, get a free SSL certificate from letsencrypt.org:
     ```
-    ds get-ssl-cert user@example.org moodle1.example.org --test
-    ds get-ssl-cert user@example.org moodle1.example.org
+    ds @wsproxy get-ssl-cert user@example.org moodle1.example.org --test
+    ds @wsproxy get-ssl-cert user@example.org moodle1.example.org
     ```
 
   - If the domain is not a real one, add to `/etc/hosts` the line
