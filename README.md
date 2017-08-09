@@ -30,15 +30,12 @@ Docker scripts that install and run Moodle in a container.
 
 ## Access the website
 
-  - Tell `wsproxy` that the domain `moodle1.example.org` is served by the container `moodle1-example-org`:
-    ```
-    ds @wsproxy domains-add moodle1-example-org moodle1.example.org
-    ```
+  - Tell `wsproxy` to manage the domain of this container: `ds wsproxy add`
 
-  - If the domain is a real one, get a free SSL certificate from letsencrypt.org:
+  - Tell `wsproxy` to get a free letsencrypt.org SSL certificate for this domain (if it is a real one):
     ```
-    ds @wsproxy get-ssl-cert user@example.org moodle1.example.org --test
-    ds @wsproxy get-ssl-cert user@example.org moodle1.example.org
+    ds wsproxy ssl-cert --test
+    ds wsproxy ssl-cert
     ```
 
   - If the domain is not a real one, add to `/etc/hosts` the line
@@ -53,7 +50,10 @@ ds shell
 ds stop
 ds start
 ds snapshot
+
 ds backup
+ds restore
+ds upgrade
 
 ds help
 ```

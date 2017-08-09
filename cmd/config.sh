@@ -7,23 +7,13 @@ _EOF
 }
 
 cmd_config() {
-    cmd_start
-    sleep 3
-
     # run standard config scripts
-    local config="
-        set_prompt
-        mount_tmp_on_ram
-        ssmtp
-        mysql
-        apache2
-    "
-    for cfg in $config; do
-        ds runcfg $cfg
-    done
+    ds runcfg set_prompt
+    ds runcfg mount_tmp_on_ram
+    ds runcfg ssmtp
+    ds runcfg mysql
+    ds runcfg apache2
 
     # run moodle config script
     ds runcfg moodle
-
-    cmd_restart
 }
