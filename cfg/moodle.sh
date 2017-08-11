@@ -3,6 +3,11 @@
 
 source /host/settings.sh
 
+### fix apache2 config
+sed -i /etc/apache2/sites-available/default.conf \
+    -e 's#/var/www/default#/var/www/moodle#g'
+service apache2 reload
+
 ### change the configuration of mysql
 sed -i /etc/mysql/mysql.conf.d/mysqld.cnf \
     -e '/^### required by moodle/,$ d'
