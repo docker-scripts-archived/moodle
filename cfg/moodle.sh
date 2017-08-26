@@ -114,14 +114,14 @@ $moosh config-set smtppass "$GMAIL_PASSWD"
 
 ### install and config mod_offlinequiz
 $moosh plugin-list >/dev/null
-$moosh plugin-install -f mod_offlinequiz 2017020202
+$moosh plugin-install -f mod_offlinequiz 2017081100
 /usr/bin/php admin/cli/upgrade.php <<< y
 $moosh config-set shufflequestions 1 offlinequiz
 $moosh config-set shuffleanswers 1 offlinequiz
 $moosh config-set logourl "$OFFLINEQUIZ_LOGOURL" offlinequiz
 
 ### install mod_bigbluebuttonbn
-moosh plugin-install mod_bigbluebuttonbn 2016051909
+moosh plugin-install mod_bigbluebuttonbn 2016051917
 moosh plugin-install mod_recordingsbn 2016051905
 
 ### run moodle cron every 5 minutes
