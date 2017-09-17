@@ -3,8 +3,7 @@ APP=moodle
 ### Docker settings.
 IMAGE=moodle
 CONTAINER=moodle1-example-org
-#PORTS="80:80 443:443 2222:22"    ## ports to be forwarded when running stand-alone
-PORTS=""    ## no ports to be forwarded when running behind wsproxy
+#PORTS=
 
 DOMAIN="moodle1.example.org"
 
@@ -30,6 +29,7 @@ ADMIN_PASS=
 ADMIN_EMAIL=
 
 ### Settings for register/login with OAuth2.
+### See: https://developers.google.com/adwords/api/docs/guides/authentication#webapp
 GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
 
