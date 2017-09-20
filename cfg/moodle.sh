@@ -117,8 +117,7 @@ $moosh config-set smtppass "$GMAIL_PASSWD"
 
 ### install and config mod_offlinequiz
 $moosh plugin-list >/dev/null
-#$moosh plugin-install -f mod_offlinequiz 2017081100
-$moosh plugin-install -f mod_offlinequiz 2016072301
+$moosh plugin-install -f mod_offlinequiz 2017081100
 /usr/bin/php admin/cli/upgrade.php <<< y
 $moosh config-set shufflequestions 1 offlinequiz
 $moosh config-set shuffleanswers 1 offlinequiz
