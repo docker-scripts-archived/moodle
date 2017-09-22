@@ -26,6 +26,7 @@ cmd_config() {
     # install additional plugins
     ds runcfg plugin/offlinequiz
     ds runcfg plugin/bigbluebutton
+    ds runcfg plugin/coderunner
 
     # cleanup
     ds cc
