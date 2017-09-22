@@ -17,10 +17,6 @@ RUN apt-get update && \
     apt-get -y install cron vim git wget curl unzip \
                rsyslog logrotate ssmtp logwatch
 
-### Get MOODLE_33_STABLE from git.
-RUN git clone -b MOODLE_33_STABLE git://git.moodle.org/moodle.git --depth=1 /var/www/moodle
-WORKDIR /var/www/moodle
-
 ### Install packages required by moodle.
 RUN DEBIAN_FRONTEND=noninteractive \
     apt-get -y install \
@@ -35,3 +31,5 @@ RUN git clone git://github.com/tmuras/moosh.git /usr/local/src/moosh && \
     cd /usr/local/src/moosh && \
     composer install && \
     ln -s /usr/local/src/moosh/moosh.php /usr/local/bin/moosh
+
+WORKDIR /var/www/moodle

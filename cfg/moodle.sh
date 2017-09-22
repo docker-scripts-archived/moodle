@@ -3,6 +3,9 @@
 
 source /host/settings.sh
 
+### Get MOODLE_33_STABLE from git.
+git clone -b MOODLE_33_STABLE git://git.moodle.org/moodle.git --depth=1 /var/www/moodle
+
 ### fix apache2 config
 sed -i /etc/apache2/sites-available/default.conf \
     -e 's#/var/www/default#/var/www/moodle#g'
@@ -124,8 +127,8 @@ $moosh config-set shuffleanswers 1 offlinequiz
 $moosh config-set logourl "$OFFLINEQUIZ_LOGOURL" offlinequiz
 
 ### install mod_bigbluebuttonbn
-moosh plugin-install mod_bigbluebuttonbn 2016051917
-moosh plugin-install mod_recordingsbn 2016051905
+$moosh plugin-install mod_bigbluebuttonbn 2016051917
+$moosh plugin-install mod_recordingsbn 2016051905
 
 ### run moodle cron every 5 minutes
 echo "*/5 * * * * root /usr/bin/php /var/www/moodle/admin/cli/cron.php >> /var/log/cron.log 2>&1" > /etc/cron.d/moodle
