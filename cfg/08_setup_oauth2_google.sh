@@ -1,15 +1,17 @@
 #!/bin/bash -x
 ### moodle configuration
 
+moosh -n auth-manage enable oauth2
+moosh -n auth-manage up oauth2
+
+### get $DBNAME,  $GOOGLE_CLIENT_ID, $GOOGLE_CLIENT_SECRET
 source /host/settings.sh
 
-moosh="moosh -n"
-$moosh auth-manage enable oauth2
-$moosh auth-manage up oauth2
+[[ -n $GOOGLE_CLIENT_ID ]] || exit
 
 mysql="mysql --defaults-file=/etc/mysql/debian.cnf --database=$DBNAME -B"
-
 timestamp=$(date +%s)
+
 $mysql -e "
     INSERT INTO mdl_oauth2_issuer
         (id, timecreated, timemodified, usermodified, name, image, baseurl,

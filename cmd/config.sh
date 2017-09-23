@@ -20,13 +20,11 @@ cmd_config() {
     ds runcfg 04_create_db
     ds runcfg 05_moodle_install
     ds runcfg 06_moodle_config
-    ds runcfg 07_config_oauth2
-    ds runcfg 08_setup_cron
+    ds runcfg 07_setup_cron
+    ds runcfg 08_setup_oauth2_google
 
     # install additional plugins
-    ds runcfg plugin/offlinequiz
-    ds runcfg plugin/bigbluebutton
-    ds runcfg plugin/coderunner
+    ds install-plugins
 
     # cleanup
     ds cc
