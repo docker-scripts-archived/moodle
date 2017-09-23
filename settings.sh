@@ -33,5 +33,9 @@ ADMIN_EMAIL=
 GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
 
-### Settings for the module offlinequiz.
+### Additional plugins to be installed.
+#PLUGINS="offlinequiz bigbluebutton coderunner mathslate webrtcexperiments"
+PLUGINS="offlinequiz bigbluebutton coderunner"
+
+### Settings for the plugin offlinequiz.
 OFFLINEQUIZ_LOGOURL=

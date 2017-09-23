@@ -7,11 +7,11 @@ _EOF
 }
 
 cmd_install-plugins() {
-    ds runcfg plugin/offlinequiz
-    ds runcfg plugin/bigbluebutton
-    ds runcfg plugin/coderunner
-#    ds runcfg plugin/mathslate
-#    ds runcfg plugin/webrtcexperiments
+    [[ -n $PLUGINS ]] || return
+
+    for plugin in $PLUGINS; do
+        ds runcfg plugin/$plugin
+    done
 
     # cleanup
     ds cc
