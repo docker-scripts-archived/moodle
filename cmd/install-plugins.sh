@@ -10,6 +10,8 @@ cmd_install-plugins() {
     ds runcfg plugin/offlinequiz
     ds runcfg plugin/bigbluebutton
     ds runcfg plugin/coderunner
+#    ds runcfg plugin/mathslate
+#    ds runcfg plugin/webrtcexperiments
 
     # cleanup
     ds cc
