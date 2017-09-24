@@ -8,11 +8,13 @@ mkdir -p /host/data
 chown -R www-data /host/data
 chmod -R 777 /host/data
 
-### Get MOODLE_33_STABLE from git.
-git clone -b MOODLE_33_STABLE git://git.moodle.org/moodle.git --depth=1 /var/www/moodle
-
 ### go to the moodle directory
 cd /var/www/moodle/
+
+### Get $MOODLE_BRANCH from git.
+git pull
+git branch --track $MOODLE_BRANCH origin/$MOODLE_BRANCH
+git checkout $MOODLE_BRANCH
 
 ### set some configuration defaults
 cat <<_EOF > local/defaults.php

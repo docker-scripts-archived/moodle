@@ -32,4 +32,7 @@ RUN git clone git://github.com/tmuras/moosh.git /usr/local/src/moosh && \
     composer install && \
     ln -s /usr/local/src/moosh/moosh.php /usr/local/bin/moosh
 
+### Get moodle from git.
+RUN git clone git://git.moodle.org/moodle.git /var/www/moodle
+
 WORKDIR /var/www/moodle

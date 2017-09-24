@@ -1,4 +1,5 @@
 APP=moodle
+MOODLE_BRANCH=MOODLE_33_STABLE
 
 ### Docker settings.
 IMAGE=moodle
