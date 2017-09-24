@@ -33,6 +33,7 @@ RUN git clone git://github.com/tmuras/moosh.git /usr/local/src/moosh && \
     ln -s /usr/local/src/moosh/moosh.php /usr/local/bin/moosh
 
 ### Get moodle code from git.moodle.org
-RUN git clone --progress --verbose git://git.moodle.org/moodle.git /var/www/moodle
+#RUN git clone --progress --verbose git://git.moodle.org/moodle.git /var/www/moodle
+RUN git clone --progress --verbose https://github.com/moodle/moodle /var/www/moodle
 
 WORKDIR /var/www/moodle
