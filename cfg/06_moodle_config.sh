@@ -4,12 +4,11 @@
 source /host/settings.sh
 
 ### set the name of the admin user
-mysql="mysql --defaults-file=/etc/mysql/debian.cnf --database=$DBNAME -B"
-$mysql -e "UPDATE mdl_user
+$mysql --database=$DBNAME -B -e \
+          "UPDATE mdl_user
            SET firstname='$SITE_SHORTNAME', lastname='Admin'
            WHERE username='admin'"
 
-moosh="moosh -n"
 $moosh config-set theme more    # set theme
 $moosh config-set registerauth email
 

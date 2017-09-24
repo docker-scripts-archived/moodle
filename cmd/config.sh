@@ -22,6 +22,7 @@ cmd_config() {
     ds runcfg 06_moodle_config
     ds runcfg 07_setup_cron
     ds runcfg 08_setup_oauth2_google
+    ds runcfg 09_bash_aliases
 
     # install additional plugins
     ds install-plugins

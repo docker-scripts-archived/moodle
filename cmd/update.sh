@@ -7,7 +7,7 @@ _EOF
 }
 
 cmd_update() {
-    local php="ds exec php"
+    local php='ds exec sudo --user=www-data php'
     set -x
 
     # start maintenance
@@ -20,7 +20,7 @@ cmd_update() {
     ls -l backup*
 
     # update
-    ds exec git pull
+    ds exec sudo --user=www-data git pull
     $php admin/cli/upgrade.php --non-interactive
 
     # stop maintenance

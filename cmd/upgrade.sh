@@ -24,5 +24,6 @@ cmd_upgrade() {
     sleep 3
 
     # run upgrade script
-    ds exec php admin/cli/upgrade.php --non-interactive
+    local php='ds exec sudo --user=www-data php'
+    $php admin/cli/upgrade.php --non-interactive
 }
