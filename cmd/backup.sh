@@ -1,25 +1,16 @@
 cmd_backup_help() {
     cat <<_EOF
-    backup [-d | --data]
+    backup [+d | +data]
         Backup the Moodle database and config file.
-        With option -d, the data directory is included in the backup as well.
+        With option +d, the data directory is included in the backup as well.
 
 _EOF
 }
 
 cmd_backup() {
-    # get the option --data
-    local opts data=0
-    opts="$(getopt -o d -l data -n "$PROGRAM" -- "$@")"
-    local err=$?
-    eval set -- "$opts"
-    while true; do
-        case $1 in
-            -d|--data) data=1; shift ;;
-            --) shift; break ;;
-        esac
-    done
-    [[ $err == 0 ]] || fail "Usage:\n$(cmd_backup_help)"
+    # get the option +data
+    local data=0
+    [[ $1 == '+d' || $1 == '+data' ]] && data=1
 
     # stop the web server
     ds exec service apache2 stop
