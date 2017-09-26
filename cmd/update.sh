@@ -8,23 +8,46 @@ _EOF
 
 cmd_update() {
     local php='ds exec sudo --user=www-data php'
-    set -x
+    local git='ds exec sudo --user=www-data git'
 
-    # start maintenance
-    $php admin/cli/cron.php > /dev/null
+    output() { echo -e "\n--> $1..."; }
+
+    output 'Enable maintenance mode'
     $php admin/cli/maintenance.php --enable
+
+    output 'Run cron'
+    $php admin/cli/cron.php | grep 'task failed:'
+
+    output 'Purge caches'
     $php admin/cli/purge_caches.php
 
-    # make a full backup
+    output 'Make a full backup'
     ds backup +data
     ls -l backup*
 
-    # update
-    ds exec sudo --user=www-data git pull
-    $php admin/cli/upgrade.php --non-interactive
+    local ans
+    read -p "Continue with update? [Y/n]: " ans
+    ans=${ans:-y}
+    ans=${ans,}
+    if [[ $ans == 'y' ]]; then
+        output 'Git pull'
+        $git stash
+        $git pull
+        $git stash pop
+        $git diff
 
-    # stop maintenance
-    $php admin/cli/purge_caches.php
-    ds exec fgrep '$release' version.php
+        output 'Run upgrade script'
+        $php admin/cli/upgrade.php --non-interactive
+
+        output 'Purge caches'
+        $php admin/cli/purge_caches.php
+
+        output 'Run cron'
+        $php admin/cli/cron.php | grep 'task failed:'
+    else
+        echo "Update aborted."
+    fi
+
+    output 'Disable maintenance mode'
     $php admin/cli/maintenance.php --disable
 }
