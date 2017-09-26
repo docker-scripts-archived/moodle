@@ -9,14 +9,15 @@ _EOF
 cmd_update() {
     local php='ds exec sudo --user=www-data php'
     local git='ds exec sudo --user=www-data git'
+    local mysql='mysql --defaults-file=/etc/mysql/debian.cnf'
 
     output() { echo -e "\n--> $1..."; }
 
-    output 'Enable maintenance mode'
-    $php admin/cli/maintenance.php --enable
-
     output 'Run cron'
     $php admin/cli/cron.php | grep 'task failed:'
+
+    output 'Enable maintenance mode'
+    $php admin/cli/maintenance.php --enable
 
     output 'Purge caches'
     $php admin/cli/purge_caches.php
@@ -41,13 +42,13 @@ cmd_update() {
 
         output 'Purge caches'
         $php admin/cli/purge_caches.php
-
-        output 'Run cron'
-        $php admin/cli/cron.php | grep 'task failed:'
     else
         echo "Update aborted."
     fi
 
     output 'Disable maintenance mode'
     $php admin/cli/maintenance.php --disable
+
+    output 'Run cron'
+    $php admin/cli/cron.php | grep 'task failed:'
 }
