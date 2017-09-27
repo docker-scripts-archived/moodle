@@ -1,12 +1,12 @@
-cmd_upgrade_help() {
+cmd_remake_help() {
     cat <<_EOF
-    upgrade
-        Upgrade to the latest version of Moodle.
+    remake
+        Reconstruct again the container, preserving the existing data.
 
 _EOF
 }
 
-cmd_upgrade() {
+cmd_remake() {
     # backup
     ds backup
 
