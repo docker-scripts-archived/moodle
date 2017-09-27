@@ -26,7 +26,7 @@ cmd_backup() {
         "mysqldump --defaults-file=/etc/mysql/debian.cnf --allow-keywords --opt '$DBNAME' > /host/$dir/db.sql"
 
     # copy the config file
-    docker cp $CONTAINER:/var/www/moodle/config.php $dir/
+    cp var-www/moodle/config.php $dir/
 
     # copy the data directory
     [[ $data == 1 ]] && cp -a data/ $dir/
