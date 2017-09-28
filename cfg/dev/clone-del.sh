@@ -5,7 +5,7 @@ tag=$1
 [[ -z $tag ]] && echo "Usage: $0 <tag>" && exit 1
 
 ### delete apache2 config
-a2ensite moodle_$tag
+a2dissite moodle_$tag
 find -L -samefile /etc/apache2/sites-available/moodle_$tag.conf | xargs rm -f
 service apache2 restart
 

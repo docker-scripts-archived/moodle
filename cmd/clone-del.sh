@@ -8,8 +8,15 @@ _EOF
 
 cmd_clone-del() {
     local tag=$1
-    [[ -n $tag ]] || fail "\nUsage: $(cmd_clone-del_help)"
+    [[ -n $tag ]] || fail "Usage:\n$(cmd_clone-del_help)"
 
     ds @wsproxy domains-rm $tag.$DOMAIN
+
+    ds @wsproxy exec sh -c "
+        cp /etc/hosts /etc/hosts.1 ;
+        sed -i /etc/hosts.1 -e '/$tag.$DOMAIN/d' ;
+        cat /etc/hosts.1 > /etc/hosts;
+        rm -f /etc/hosts.1"
+
     ds runcfg dev/clone-del $tag
 }
