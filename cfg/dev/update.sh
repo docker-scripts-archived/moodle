@@ -11,10 +11,10 @@ $php admin/cli/maintenance.php --enable
 $php admin/cli/purge_caches.php
 
 ### update moodle code with 'git pull'
-git='sudo --user=www-data git'
-$git stash
-$git pull
-$git stash pop
+git stash
+git pull
+git stash pop
+chown www-data: -R .
 
 ### update the database
 $php admin/cli/upgrade.php --non-interactive

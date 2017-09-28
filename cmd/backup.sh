@@ -12,8 +12,12 @@ cmd_backup() {
     local data=0
     [[ $1 == '+d' || $1 == '+data' ]] && data=1
 
-    # stop the web server
-    ds exec service apache2 stop
+    # clear caches, enable maintenance mode, and stop the web server
+    local php='ds exec sudo --user=www-data php'
+    $php admin/cli/cron.php | grep 'task failed:'
+    $php admin/cli/maintenance.php --enable
+    $php admin/cli/purge_caches.php
+    ds exec service apache2 start
 
     # create a directory for collecting the backup data
     local datestamp=$(date +%F)
@@ -37,6 +41,7 @@ cmd_backup() {
     # clean up
     rm -rf $dir/
 
-    # start the web server
+    # start the web server and disable maintenance mode
     ds exec service apache2 start
+    $php admin/cli/maintenance.php --disable
 }
