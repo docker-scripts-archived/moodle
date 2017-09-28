@@ -1,28 +1,26 @@
 cmd_upgrade_help() {
     cat <<_EOF
-    upgrade
-        Upgrade to the latest version of Moodle.
+    upgrade <target> <moodle-branch>
+        Upgrade moodle version.
+        <target> can be 'moodle' (default) or the name
+        of a clone like: 'moodle_test', 'moodle_01', etc.
+        <moodle-branch> is a git branch like MOODLE_33_STABLE
 
 _EOF
 }
 
 cmd_upgrade() {
-    # backup
-    ds backup
+    local target=$1
+    [[ -n $target ]] || fail "Usage:\n$(cmd_upgrade_help)"
+    [[ -d  var-www/$target ]] || fail "Directory var-www/$target does not exist."
 
-    # reinstall
-    ds remove
-    ds build
-    ds create
-    ds config
-    ds restart
+    local branch=$2
+    [[ -n $branch ]] || fail "Usage:\n$(cmd_upgrade_help)"
+    [[ $branch == $MOODLE_BRANCH ]] || fail "MOODLE_BRANCH on 'settings.sh' is different from $branch."
 
-    # restore
-    local datestamp=$(date +%F)
-    local backup_file=backup-$CONTAINER-$datestamp.tgz
-    ds restore $backup_file
-    sleep 3
+    # make a backup
+    [[ $target == 'moodle' ]] && ds backup +data
 
-    # run upgrade script
-    ds exec php admin/cli/upgrade.php --non-interactive
+    # run upgrade
+    ds runcfg dev/upgrade $target $branch
 }

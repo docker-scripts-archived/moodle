@@ -1,18 +1,17 @@
 #!/bin/bash -x
 ### moodle configuration
 
-moosh -n auth-manage enable oauth2
-moosh -n auth-manage up oauth2
+$moosh auth-manage enable oauth2
+$moosh auth-manage up oauth2
 
 ### get $DBNAME,  $GOOGLE_CLIENT_ID, $GOOGLE_CLIENT_SECRET
 source /host/settings.sh
 
 [[ -n $GOOGLE_CLIENT_ID ]] || exit
 
-mysql="mysql --defaults-file=/etc/mysql/debian.cnf --database=$DBNAME -B"
 timestamp=$(date +%s)
 
-$mysql -e "
+$mysql --database=$DBNAME -B -e "
     INSERT INTO mdl_oauth2_issuer
         (id, timecreated, timemodified, usermodified, name, image, baseurl,
         clientid, clientsecret, loginscopes, loginscopesoffline, loginparams,
@@ -25,7 +24,7 @@ $mysql -e "
         '', 'openid email profile', 1, 1, 0);
     "
 
-$mysql -e "
+$mysql --database=$DBNAME -B -e "
     INSERT INTO mdl_oauth2_endpoint
         (id, timecreated, timemodified, usermodified, name, url, issuerid)
     VALUES
@@ -36,7 +35,7 @@ $mysql -e "
         (5, $timestamp, $timestamp, 2, 'revocation_endpoint', 'https://accounts.google.com/o/oauth2/revoke', 1);
     "
 
-$mysql -e "
+$mysql --database=$DBNAME -B -e "
     INSERT INTO mdl_oauth2_user_field_mapping
         (id, timemodified, timecreated, usermodified, issuerid, externalfield, internalfield)
     VALUES

@@ -8,11 +8,18 @@ mkdir -p /host/data
 chown -R www-data /host/data
 chmod -R 777 /host/data
 
-### Get MOODLE_33_STABLE from git.
-git clone -b MOODLE_33_STABLE git://git.moodle.org/moodle.git --depth=1 /var/www/moodle
+### copy moodle code
+if [[ ! -f /var/www/moodle/config.php ]]; then
+    rm -rf /var/www/moodle
+    cp -a /usr/local/src/moodle /var/www/
+fi
 
 ### go to the moodle directory
 cd /var/www/moodle/
+
+### Get $MOODLE_BRANCH from git.
+git pull
+git checkout $MOODLE_BRANCH
 
 ### set some configuration defaults
 cat <<_EOF > local/defaults.php
@@ -24,12 +31,20 @@ cat <<_EOF > local/defaults.php
 \$defaults['moodle']['smtppass'] = '$GMAIL_PASSWD';
 _EOF
 
-### install moodle
-/usr/bin/php admin/cli/install.php \
-    --non-interactive --agree-license \
-    --wwwroot="https://$DOMAIN" --dataroot="/host/data" \
-    --dbtype="mysqli" --dbname="$DBNAME" --dbuser="$DBUSER" --dbpass="$DBPASS" \
-    --lang="$SITE_LANG" --fullname="$SITE_FULLNAME" --shortname="$SITE_SHORTNAME" \
-    --adminuser="$ADMIN_USER" --adminpass="$ADMIN_PASS" --adminemail="$ADMIN_EMAIL"
+### fix ownership
+chown -R www-data: /var/www
 
-chmod -R 0755 .
+### install moodle
+if [[ -f /var/www/moodle/config.php ]]; then
+    $php admin/cli/install_database.php \
+        --agree-license \
+        --lang="$SITE_LANG" --fullname="$SITE_FULLNAME" --shortname="$SITE_SHORTNAME" \
+        --adminuser="$ADMIN_USER" --adminpass="$ADMIN_PASS" --adminemail="$ADMIN_EMAIL"
+else
+    $php admin/cli/install.php \
+        --non-interactive --agree-license \
+        --wwwroot="https://$DOMAIN" --dataroot="/host/data" \
+        --dbtype="mysqli" --dbname="$DBNAME" --dbuser="$DBUSER" --dbpass="$DBPASS" \
+        --lang="$SITE_LANG" --fullname="$SITE_FULLNAME" --shortname="$SITE_SHORTNAME" \
+        --adminuser="$ADMIN_USER" --adminpass="$ADMIN_PASS" --adminemail="$ADMIN_EMAIL"
+fi

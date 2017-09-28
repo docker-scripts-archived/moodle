@@ -1,28 +1,23 @@
 cmd_backup_help() {
     cat <<_EOF
-    backup [-d | --data]
+    backup [+d | +data]
         Backup the Moodle database and config file.
-        With option -d, the data directory is included in the backup as well.
+        With option +d, the data directory is included in the backup as well.
 
 _EOF
 }
 
 cmd_backup() {
-    # get the option --data
-    local opts data=0
-    opts="$(getopt -o d -l data -n "$PROGRAM" -- "$@")"
-    local err=$?
-    eval set -- "$opts"
-    while true; do
-        case $1 in
-            -d|--data) data=1; shift ;;
-            --) shift; break ;;
-        esac
-    done
-    [[ $err == 0 ]] || fail "Usage:\n$(cmd_backup_help)"
+    # get the option +data
+    local data=0
+    [[ $1 == '+d' || $1 == '+data' ]] && data=1
 
-    # stop the web server
-    ds exec service apache2 stop
+    # clear caches, enable maintenance mode, and stop the web server
+    local php='ds exec sudo --user=www-data php'
+    $php admin/cli/cron.php | grep 'task failed:'
+    $php admin/cli/maintenance.php --enable
+    $php admin/cli/purge_caches.php
+    ds exec service apache2 start
 
     # create a directory for collecting the backup data
     local datestamp=$(date +%F)
@@ -35,7 +30,7 @@ cmd_backup() {
         "mysqldump --defaults-file=/etc/mysql/debian.cnf --allow-keywords --opt '$DBNAME' > /host/$dir/db.sql"
 
     # copy the config file
-    docker cp $CONTAINER:/var/www/moodle/config.php $dir/
+    cp var-www/moodle/config.php $dir/
 
     # copy the data directory
     [[ $data == 1 ]] && cp -a data/ $dir/
@@ -46,6 +41,7 @@ cmd_backup() {
     # clean up
     rm -rf $dir/
 
-    # start the web server
+    # start the web server and disable maintenance mode
     ds exec service apache2 start
+    $php admin/cli/maintenance.php --disable
 }

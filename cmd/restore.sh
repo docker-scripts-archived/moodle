@@ -27,11 +27,11 @@ cmd_restore() {
     fi
 
     # restore the config file
-    docker cp $dir/config.php $CONTAINER:/var/www/moodle/
+    cp $dir/config.php var-www/moodle/
 
     # restore the database
     ds exec sh -c \
-        "mysql --defaults-file=/etc/mysql/debian.cnf --database="$DBNAME" < /host/$dir/db.sql"
+        "mysql --defaults-file=/etc/mysql/debian.cnf --database='$DBNAME' < /host/$dir/db.sql"
 
     # cleanup
     rm -rf $dir/
