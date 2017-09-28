@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 ### Upgrade moodle version, for example from 3.2 to 3.3
 
 fail() { echo -n "$@" >&2 ; exit 1; }
