@@ -30,8 +30,7 @@ cmd_restore() {
     cp $dir/config.php var-www/moodle/
 
     # restore the database
-    ds exec sh -c \
-        "mysql --defaults-file=/etc/mysql/debian.cnf --database='$DBNAME' < /host/$dir/db.sql"
+    ds exec sh -c "mysql --database='$DBNAME' < /host/$dir/db.sql"
 
     # cleanup
     rm -rf $dir/
