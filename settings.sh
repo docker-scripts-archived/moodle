@@ -35,8 +35,16 @@ GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
 
 ### Additional plugins to be installed.
-#PLUGINS="offlinequiz bigbluebutton coderunner mathslate webrtcexperiments"
-PLUGINS="offlinequiz bigbluebutton coderunner"
+PLUGINS="
+    mod_bigbluebuttonbn
+    mod_recordingsbn
+    mod_offlinequiz
+    qbehaviour_adaptive_adapted_for_coderunner
+    qtype_coderunner
+    atto_mathslate
+    tinymce_mathslate
+    mod_webrtcexperiments
+"
 
 ### Settings for the plugin offlinequiz.
 OFFLINEQUIZ_LOGOURL=
