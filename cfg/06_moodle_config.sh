@@ -4,7 +4,7 @@
 source /host/settings.sh
 
 ### set the name of the admin user
-$mysql --database=$DBNAME -B -e \
+mysql --database=$DBNAME -B -e \
           "UPDATE mdl_user
            SET firstname='$SITE_SHORTNAME', lastname='Admin'
            WHERE username='admin'"

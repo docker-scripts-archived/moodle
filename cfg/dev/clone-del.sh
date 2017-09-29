@@ -15,4 +15,4 @@ rm -rf /host/data_$tag
 
 ### drop the database
 source /host/settings.sh
-$mysql -e "DROP DATABASE IF EXISTS ${DBNAME}_$tag;"
+mysql -e "DROP DATABASE IF EXISTS ${DBNAME}_$tag;"

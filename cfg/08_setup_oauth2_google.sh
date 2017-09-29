@@ -11,7 +11,7 @@ source /host/settings.sh
 
 timestamp=$(date +%s)
 
-$mysql --database=$DBNAME -B -e "
+mysql --database=$DBNAME -B -e "
     INSERT INTO mdl_oauth2_issuer
         (id, timecreated, timemodified, usermodified, name, image, baseurl,
         clientid, clientsecret, loginscopes, loginscopesoffline, loginparams,
@@ -24,7 +24,7 @@ $mysql --database=$DBNAME -B -e "
         '', 'openid email profile', 1, 1, 0);
     "
 
-$mysql --database=$DBNAME -B -e "
+mysql --database=$DBNAME -B -e "
     INSERT INTO mdl_oauth2_endpoint
         (id, timecreated, timemodified, usermodified, name, url, issuerid)
     VALUES
@@ -35,7 +35,7 @@ $mysql --database=$DBNAME -B -e "
         (5, $timestamp, $timestamp, 2, 'revocation_endpoint', 'https://accounts.google.com/o/oauth2/revoke', 1);
     "
 
-$mysql --database=$DBNAME -B -e "
+mysql --database=$DBNAME -B -e "
     INSERT INTO mdl_oauth2_user_field_mapping
         (id, timemodified, timecreated, usermodified, issuerid, externalfield, internalfield)
     VALUES
