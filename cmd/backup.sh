@@ -27,7 +27,7 @@ cmd_backup() {
 
     # dump the database
     ds exec sh -c \
-        "mysqldump --defaults-file=/etc/mysql/debian.cnf --allow-keywords --opt '$DBNAME' > /host/$dir/db.sql"
+        "mysqldump --allow-keywords --opt '$DBNAME' > /host/$dir/db.sql"
 
     # copy the config file
     cp var-www/moodle/config.php $dir/

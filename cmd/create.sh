@@ -14,6 +14,5 @@ cmd_create() {
         --workdir /var/www/moodle \
         --env php='sudo --user=www-data php' \
         --env moosh='sudo --user=www-data --set-home moosh --no-user-check' \
-        --env mysql='mysql --defaults-file=/etc/mysql/debian.cnf' \
         "$@"
 }

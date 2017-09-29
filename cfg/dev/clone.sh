@@ -26,14 +26,13 @@ sed -i /var/www/$moodle/config.php \
     -e "/^\$CFG->dataroot/ c \$CFG->dataroot  = '/host/$data';"
 
 ### create a new database
-$mysql -e "
+mysql -e "
         DROP DATABASE IF EXISTS $dbname;
         CREATE DATABASE $dbname;
         GRANT ALL ON $dbname.* TO $DBUSER@localhost;
     "
 # copy the data of the database
-mysqldump --defaults-file=/etc/mysql/debian.cnf --allow-keywords --opt $DBNAME \
-    | $mysql --database=$dbname
+mysqldump --allow-keywords --opt $DBNAME | mysql --database=$dbname
 
 # replace the old domain with the new one in the database
 cd /var/www/$moodle

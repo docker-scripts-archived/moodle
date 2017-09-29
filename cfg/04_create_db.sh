@@ -3,7 +3,7 @@
 
 source /host/settings.sh
 
-$mysql -e "
+mysql -e "
     DROP DATABASE IF EXISTS $DBNAME;
     CREATE DATABASE $DBNAME;
     GRANT ALL ON $DBNAME.* TO $DBUSER@localhost IDENTIFIED BY '$DBPASS';
