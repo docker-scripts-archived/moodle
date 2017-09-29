@@ -44,7 +44,7 @@ else
     $php admin/cli/install.php \
         --non-interactive --agree-license \
         --wwwroot="https://$DOMAIN" --dataroot="/host/data" \
-        --dbtype="mysqli" --dbname="$DBNAME" --dbuser="$DBUSER" --dbpass="$DBPASS" \
+        --dbtype="mariadb" --dbname="$DBNAME" --dbuser="$DBUSER" --dbpass="$DBPASS" \
         --lang="$SITE_LANG" --fullname="$SITE_FULLNAME" --shortname="$SITE_SHORTNAME" \
         --adminuser="$ADMIN_USER" --adminpass="$ADMIN_PASS" --adminemail="$ADMIN_EMAIL"
 fi
