@@ -1,7 +1,7 @@
 #!/bin/bash -x
 ### fix mariadb config
 
-cat <<EOF >> /etc/mysql/conf.d/moodle.cnf
+cat <<EOF > /etc/mysql/conf.d/moodle.cnf
 [mysqld]
 default_storage_engine = innodb
 innodb_file_per_table = 1
