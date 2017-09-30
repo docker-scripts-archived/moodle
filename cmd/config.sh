@@ -8,21 +8,21 @@ _EOF
 
 cmd_config() {
     # run standard config scripts
-    ds runcfg set_prompt
-    ds runcfg ssmtp
-    ds runcfg mariadb
-    ds runcfg apache2
+    ds inject set_prompt.sh
+    ds inject ssmtp.sh
+    ds inject mariadb.sh
+    ds inject apache2.sh
 
     # run moodle config scripts
-    ds runcfg 01_mount_tmp_on_ram
-    ds runcfg 02_fix_apache2_config
-    ds runcfg 03_mariadb_config
-    ds runcfg 04_create_db
-    ds runcfg 05_moodle_install
-    ds runcfg 06_moodle_config
-    ds runcfg 07_setup_cron
-    ds runcfg 08_setup_oauth2_google
-    ds runcfg 09_bash_aliases
+    ds inject cfg/01_mount_tmp_on_ram.sh
+    ds inject cfg/02_fix_apache2_config.sh
+    ds inject cfg/03_mariadb_config.sh
+    ds inject cfg/04_create_db.sh
+    ds inject cfg/05_moodle_install.sh
+    ds inject cfg/06_moodle_config.sh
+    ds inject cfg/07_setup_cron.sh
+    ds inject cfg/08_setup_oauth2_google.sh
+    ds inject cfg/09_bash_aliases.sh
 
     # install additional plugins
     ds install-plugins

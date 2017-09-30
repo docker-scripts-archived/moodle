@@ -10,5 +10,5 @@ _EOF
 cmd_update() {
     local target=${1:-moodle}
     [[ $target == 'moodle' ]] && ds backup +data
-    ds runcfg dev/update $target
+    ds inject update.sh $target
 }
