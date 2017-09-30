@@ -18,7 +18,7 @@ cmd_clone() {
     fi
 
     # clone the site
-    ds runcfg dev/clone $tag
+    ds inject clone.sh $tag
 
     # add the new domain to wsproxy
     ds @wsproxy domains-add $CONTAINER $tag.$DOMAIN

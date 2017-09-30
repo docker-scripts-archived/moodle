@@ -13,8 +13,8 @@ cmd_install-plugins() {
     [[ -n $plugins ]] || fail "Usage:\n$(cmd_install-plugins_help)"
 
     # install plugins
-    ds runcfg dev/install-plugins $plugins
+    ds inject install-plugins.sh $plugins
 
     # config plugins
-    ds runcfg plugin/offlinequiz
+    ds inject cfg/plugin/offlinequiz.sh
 }

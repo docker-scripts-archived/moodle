@@ -18,5 +18,5 @@ cmd_clone-del() {
         cat /etc/hosts.1 > /etc/hosts;
         rm -f /etc/hosts.1"
 
-    ds runcfg dev/clone-del $tag
+    ds inject clone-del.sh $tag
 }

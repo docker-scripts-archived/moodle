@@ -22,5 +22,5 @@ cmd_upgrade() {
     [[ $target == 'moodle' ]] && ds backup +data
 
     # run upgrade
-    ds runcfg dev/upgrade $target $branch
+    ds inject upgrade.sh $target $branch
 }
