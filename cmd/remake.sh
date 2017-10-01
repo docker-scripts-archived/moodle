@@ -12,9 +12,7 @@ cmd_remake() {
 
     # reinstall
     ds remove
-    ds build
-    ds create
-    ds config
+    ds make
     ds restart
 
     # restore
