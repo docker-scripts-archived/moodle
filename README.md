@@ -20,7 +20,11 @@ Docker scripts that install and run Moodle in a container.
     ds info
     ```
 
-  - Build image, create the container and configure it: `ds make`
+  - Create the container and install Moodle: `ds make`
+
+    *Note:* This will pull the image from DockerHub. To build the
+    image yourself use `ds build` first, however this is usually
+    slower.
 
 
 ## Access the website

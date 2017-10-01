@@ -2,7 +2,7 @@ APP=moodle
 MOODLE_BRANCH=MOODLE_33_STABLE
 
 ### Docker settings.
-IMAGE=moodle
+IMAGE=dockerscripts/moodle
 CONTAINER=moodle1-example-org
 #PORTS=
 
