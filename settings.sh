@@ -1,5 +1,5 @@
 APP=moodle
-MOODLE_BRANCH=MOODLE_33_STABLE
+MOODLE_BRANCH=MOODLE_34_STABLE
 
 ### Docker settings.
 IMAGE=dockerscripts/moodle
