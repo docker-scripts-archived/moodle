@@ -8,6 +8,7 @@ _EOF
 
 cmd_config() {
     # run standard config scripts
+    ds inject ubuntu-fixes.sh
     ds inject set_prompt.sh
     ds inject ssmtp.sh
     ds inject mariadb.sh
