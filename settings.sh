@@ -21,13 +21,13 @@ GMAIL_PASSWD=
 
 ### Moodle site settings.
 SITE_LANG=en
-SITE_FULLNAME=
-SITE_SHORTNAME=
+SITE_FULLNAME="Moodle Example 1"
+SITE_SHORTNAME="MDL1"
 
 ### Admin settings.
 ADMIN_USER=admin
-ADMIN_PASS=
-ADMIN_EMAIL=
+ADMIN_PASS="admin-1234"
+ADMIN_EMAIL=admin@example.org
 
 ### Settings for register/login with OAuth2.
 ### See: https://developers.google.com/adwords/api/docs/guides/authentication#webapp
