@@ -1,40 +1,36 @@
-FROM ubuntu:16.04
-ENV container docker
-# Don't start any optional services except for the few we need.
-RUN find /etc/systemd/system \
-         /lib/systemd/system \
-         -path '*.wants/*' \
-         -not -name '*journald*' \
-         -not -name '*systemd-tmpfiles*' \
-         -not -name '*systemd-user-sessions*' \
-         -exec rm \{} \;
-RUN systemctl set-default multi-user.target
+FROM ubuntu:18.04
+
+### install systemd
+RUN apt update && \
+    apt -y upgrade && \
+    apt -y install systemd && \
+    systemctl set-default multi-user.target
+
 CMD ["/sbin/init"]
+WORKDIR /host
 
 ### Update and upgrade and install some other packages.
-RUN apt-get update && \
-    apt-get -y upgrade && \
-    apt-get -y install cron vim git wget curl unzip \
-               rsyslog logrotate ssmtp logwatch
+RUN apt -y install rsyslog logrotate ssmtp logwatch cron
+RUN apt -y install vim git wget curl unzip
 
 ### Install mariadb
-RUN apt-get -y install software-properties-common && \
+RUN apt -y install software-properties-common && \
     apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8 && \
-    add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://ftp.utexas.edu/mariadb/repo/10.2/ubuntu xenial main' && \
-    apt-get update
+    add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://ftp.utexas.edu/mariadb/repo/10.2/ubuntu artful main' && \
+    apt update
 RUN DEBIAN_FRONTEND=noninteractive \
-    apt-get -y install mariadb-server mariadb-client
+    apt -y install mariadb-server mariadb-client
 
 ### Install packages required by moodle.
 RUN DEBIAN_FRONTEND=noninteractive \
-    apt-get -y install \
-            sudo apache2 graphviz aspell \
-            php7.0 libapache2-mod-php7.0 php7.0-pspell php7.0-curl \
-            php7.0-gd php7.0-intl php7.0-mysql php7.0-xml php7.0-xmlrpc \
-            php7.0-ldap php7.0-zip php7.0-soap php7.0-mbstring
+    apt -y install \
+        sudo apache2 graphviz aspell \
+        php7.2 libapache2-mod-php7.2 php7.2-pspell php7.2-curl \
+        php7.2-gd php7.2-intl php7.2-mysql php7.2-xml php7.2-xmlrpc \
+        php7.2-ldap php7.2-zip php7.2-soap php7.2-mbstring
 
 ### Install moosh (http://moosh-online.com/)
-RUN apt-get -y install composer
+RUN apt -y install composer
 RUN git clone git://github.com/tmuras/moosh.git /usr/local/src/moosh && \
     cd /usr/local/src/moosh && \
     composer install && \

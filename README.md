@@ -13,12 +13,7 @@ Docker scripts that install and run Moodle in a container.
 
   - Create a directory for the moodle container: `ds init moodle @moodle1-example-org`
 
-  - Fix the settings:
-    ```
-    cd /var/ds/moodle1-example-org/
-    vim settings.sh
-    ds info
-    ```
+  - Fix the settings: `cd /var/ds/moodle1-example-org/; vim settings.sh`
 
   - Create the container and install Moodle: `ds make`
 
