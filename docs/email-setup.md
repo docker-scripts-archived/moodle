@@ -86,7 +86,7 @@ our applications (in this case from Moodle).
       - SYS_PTRACE
   ```
   
-  For for details about the environment variables that can be used,
+  For more details about the environment variables that can be used,
   and their meaning and possible values, check also these:
   - https://github.com/tomav/docker-mailserver#environment-variables
   - https://github.com/tomav/docker-mailserver/blob/master/.env.dist
@@ -137,7 +137,7 @@ our applications (in this case from Moodle).
   ```
   Then don't forget to change the serial number and to restart the service.
 
-- Get an SSl certificate from letsencrypt. I use
+- Get an SSL certificate from letsencrypt. I use
   [wsproxy](https://github.com/docker-scripts/wsproxy) for managing
   SSL letsencrypt certificates of my domains:
   ```
@@ -178,5 +178,5 @@ our applications (in this case from Moodle).
   trying to send some messages to other users:
   - **SMTP hosts**: `mail.example.org:465`
   - **SMTP security**: `SSL`
-  - **SMTP username**: info@example.org
-  - **SMTP password**: passwd123
+  - **SMTP username**: `info@example.org`
+  - **SMTP password**: `passwd123`
