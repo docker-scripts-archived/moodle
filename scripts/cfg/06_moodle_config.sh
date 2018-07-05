@@ -19,4 +19,12 @@ $moosh config-set smtpauthtype LOGIN
 $moosh config-set smtpuser $GMAIL_ADDRESS
 $moosh config-set smtppass "$GMAIL_PASSWD"
 
+# Maximum number of messages sent per SMTP session
+# Grouping messages may speed up the sending of emails.
+$moosh config-set smtpmaxbulk 50
+
+# Allow users to use both username and email address
+# (if unique) for site login.
+$moosh config-set authloginviaemail 1
+
 $moosh plugin-list >/dev/null
