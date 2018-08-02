@@ -2,35 +2,38 @@ FROM ubuntu:18.04
 
 ### install systemd
 RUN apt update && \
-    apt -y upgrade && \
-    apt -y install systemd && \
+    apt upgrade --yes && \
+    apt install --yes systemd && \
     systemctl set-default multi-user.target
+
+STOPSIGNAL SIGRTMIN+3
 
 CMD ["/sbin/init"]
 WORKDIR /host
 
+RUN apt install --yes locales rsyslog logrotate cron logwatch ssmtp vim
+
 ### Update and upgrade and install some other packages.
-RUN apt -y install rsyslog logrotate ssmtp logwatch cron
-RUN apt -y install vim git wget curl unzip
+RUN apt install --yes git wget curl unzip
 
 ### Install mariadb
-RUN apt -y install software-properties-common && \
+RUN apt install --yes software-properties-common && \
     apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8 && \
     add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://ftp.utexas.edu/mariadb/repo/10.2/ubuntu artful main' && \
     apt update
 RUN DEBIAN_FRONTEND=noninteractive \
-    apt -y install mariadb-server mariadb-client
+    apt install --yes mariadb-server mariadb-client
 
 ### Install packages required by moodle.
 RUN DEBIAN_FRONTEND=noninteractive \
-    apt -y install \
+    apt install --yes \
         sudo apache2 graphviz aspell \
         php7.2 libapache2-mod-php7.2 php7.2-pspell php7.2-curl \
         php7.2-gd php7.2-intl php7.2-mysql php7.2-xml php7.2-xmlrpc \
         php7.2-ldap php7.2-zip php7.2-soap php7.2-mbstring
 
 ### Install moosh (http://moosh-online.com/)
-RUN apt -y install composer
+RUN apt install --yes composer
 RUN git clone git://github.com/tmuras/moosh.git /usr/local/src/moosh && \
     cd /usr/local/src/moosh && \
     composer install && \
