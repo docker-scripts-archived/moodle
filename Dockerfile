@@ -1,3 +1,5 @@
+### Latest Moodle: 3.5.3+
+
 FROM ubuntu:18.04
 
 ### install systemd
