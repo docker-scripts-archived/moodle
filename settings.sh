@@ -13,7 +13,16 @@ DBNAME=moodle
 DBUSER=moodle
 DBPASS=moodle
 
-### Gmail account for notifications. This will be used by ssmtp.
+### You can build an SMTP server as described here:
+### https://github.com/docker-scripts/postfix/blob/master/INSTALL.md
+### Comment out if you don't have a SMTP server and want to use
+### a gmail account, as described below.
+SMTP_SERVER=smtp.example.org
+SMTP_DOMAIN=example.org
+
+### Gmail account for notifications. Use this as a simple alternative to building
+### your own SMTP server. However this has some limitations, as described here:
+### https://github.com/docker-scripts/moodle/blob/master/docs/email-setup.md
 ### You need to create an application specific password for your account:
 ### https://www.lifewire.com/get-a-password-to-access-gmail-by-pop-imap-2-1171882
 GMAIL_ADDRESS=

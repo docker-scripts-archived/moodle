@@ -22,7 +22,17 @@ git pull
 git checkout $MOODLE_BRANCH
 
 ### set some configuration defaults
-cat <<_EOF > local/defaults.php
+if [[ -n $SMTP_SERVER ]]; then
+    cat <<_EOF > local/defaults.php
+<?php
+\$defaults['moodle']['smtphosts'] = '$SMTP_SERVER';
+\$defaults['moodle']['smtpsecure'] = 'TLS';
+\$defaults['moodle']['smtpauthtype'] = 'PLAIN';
+\$defaults['moodle']['smtpuser'] = '';
+\$defaults['moodle']['smtppass'] = '';
+_EOF
+elif [[ -n $GMAIL_ADDRESS ]]; then
+    cat <<_EOF > local/defaults.php
 <?php
 \$defaults['moodle']['smtphosts'] = 'smtp.gmail.com:465';
 \$defaults['moodle']['smtpsecure'] = 'ssl';
@@ -30,6 +40,7 @@ cat <<_EOF > local/defaults.php
 \$defaults['moodle']['smtpuser'] = '$GMAIL_ADDRESS';
 \$defaults['moodle']['smtppass'] = '$GMAIL_PASSWD';
 _EOF
+fi
 
 ### fix ownership
 chown -R www-data: /var/www

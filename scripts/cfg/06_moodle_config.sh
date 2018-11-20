@@ -13,11 +13,19 @@ $moosh config-set theme more    # set theme
 $moosh config-set registerauth email
 
 ### set smtp settings
-$moosh config-set smtphosts 'smtp.gmail.com:465'
-$moosh config-set smtpsecure ssl
-$moosh config-set smtpauthtype LOGIN
-$moosh config-set smtpuser $GMAIL_ADDRESS
-$moosh config-set smtppass "$GMAIL_PASSWD"
+if [[ -n $SMTP_SERVER ]]; then
+    $moosh config-set smtphosts $SMTP_SERVER
+    $moosh config-set smtpsecure TLS
+    $moosh config-set smtpauthtype PLAIN
+    $moosh config-set smtpuser ''
+    $moosh config-set smtppass ''
+elif [[ -n $GMAIL_ADDRESS ]]; then
+    $moosh config-set smtphosts 'smtp.gmail.com:465'
+    $moosh config-set smtpsecure SSL
+    $moosh config-set smtpauthtype LOGIN
+    $moosh config-set smtpuser $GMAIL_ADDRESS
+    $moosh config-set smtppass "$GMAIL_PASSWD"
+fi
 
 # Maximum number of messages sent per SMTP session
 # Grouping messages may speed up the sending of emails.
