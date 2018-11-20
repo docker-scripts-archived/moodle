@@ -63,4 +63,5 @@ You can set the SMTP settings with one of these alternatives:
   - **SMTP hosts**: `smtp.example.org`
   - **SMTP security**: `TLS`
   - **SMTP Auth Type**: `PLAIN`
+  
   Leave empty username and password.
