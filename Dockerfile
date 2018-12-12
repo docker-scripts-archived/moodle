@@ -1,4 +1,4 @@
-### Latest Moodle: 3.5.3+
+### Latest Moodle: 3.6.1+
 
 FROM ubuntu:18.04
 
